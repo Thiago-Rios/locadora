@@ -8,6 +8,10 @@
     <ul>
       <li v-for="filme in filmes" v-bind:key="filme.id">{{ filme.titulo }}</li>
     </ul>
+    <h4>Carrinho</h4>
+    <button type="button" @click="mostrarCarrinho" class="btn btn-primary btn-lg">
+      Carrinho: {{ quantidadeCarrinho }} filmes
+    </button>
     <div class="hhh">
       <div v-bind:key="filme.id" v-for="filme in filmes">
         <div class="card">
@@ -16,7 +20,8 @@
             <h5 class="card-title">{{ filme.titulo }}</h5>
             <p class="card-text">{{ filme.descricao }}</p>
             <p class="card-text">{{ filme.valor | formatarValor("R$") }}</p>
-            <a href="#" class="btn btn-primary">ALUGAR</a>
+            <a href="#" @click="incrementar(filme)" v-if="validarAdd(filme)" class="btn btn-primary">ALUGAR</a>
+            <a href="#" v-else class="btn btn-primary disabled">ALUGAR</a>
           </div>
         </div>
       </div>
@@ -29,14 +34,16 @@ export default {
   name: 'Home',
   data: function() {
     return {
+      mostrarFilmes: true,
       msg: "Locadora de Filmes (─‿─)",
       horas: new Date().getHours(),
       filmes: [
-        { id: 1, titulo: "Kimi no na wa", descricao: "Um filme de romance com viagem temporal", valor: 20, imagem: "https://s.aficionados.com.br/imagens/mv5bmza1mgjlzjatnwi1os00mtczlwe5n2ity2i5m2yxy2ziyjq0l2ltywdll2ltywdlxkeyxkfqcgdeqxvynzayodm5ode-v1-sx707-cr0-0-707-999-al_cke.jpg"},
-        { id: 2, titulo: "Tenki no Ko", descricao: "Um filme de romance", valor: 20, imagem: "https://img1.ak.crunchyroll.com/i/spire3/45e5866b5aed0f83bcfdb7565006b2451568165472_full.jpg"},
-        { id: 3, titulo: "Dragon Ball Super Broly", descricao: "Um filme de porrada", valor: 20, imagem: "https://www.otakupt.com/wp-content/uploads/2018/11/Poster-de-Dragon-Ball-Super-Broly-1.jpg"},
-        { id: 4, titulo: "Bunny Girl", descricao: "Um filme de romance e misterio", valor: 20, imagem: "https://img1.ak.crunchyroll.com/i/spire2/6eb7cc17a5b2ef8ffa11ae011fd7d3971555765943_full.jpg"}
-      ]
+        { id: 1, titulo: "Kimi no na wa", descricao: "Um filme de romance com viagem temporal", valor: 20, imagem: "https://s.aficionados.com.br/imagens/mv5bmza1mgjlzjatnwi1os00mtczlwe5n2ity2i5m2yxy2ziyjq0l2ltywdll2ltywdlxkeyxkfqcgdeqxvynzayodm5ode-v1-sx707-cr0-0-707-999-al_cke.jpg", estoqueDisponivel: 5},
+        { id: 2, titulo: "Tenki no Ko", descricao: "Um filme de romance", valor: 20, imagem: "https://img1.ak.crunchyroll.com/i/spire3/45e5866b5aed0f83bcfdb7565006b2451568165472_full.jpg", estoqueDisponivel: 7},
+        { id: 3, titulo: "Dragon Ball Z: A Batalha dos Deuses", descricao: "Um filme de porrada", valor: 20, imagem: "https://br.web.img3.acsta.net/pictures/210/456/21045654_20131001150454933.jpg", estoqueDisponivel: 3},
+        { id: 4, titulo: "Bunny Girl", descricao: "Um filme de romance e misterio", valor: 20, imagem: "https://img1.ak.crunchyroll.com/i/spire2/6eb7cc17a5b2ef8ffa11ae011fd7d3971555765943_full.jpg", estoqueDisponivel: 0}
+      ],
+      carrinho: []
     }
   }, filters: {
     formatarValor: function (valor, simbolo) {
@@ -45,6 +52,29 @@ export default {
       }
       var valorFormatado = (valor.toFixed(2)).replace('.','.')
       return simbolo + " " + valorFormatado
+    }
+  }, methods: {
+    mostrarCarrinho() {
+      this.mostrarFilmes = this.mostrarFilmes ? false : true
+    },
+    incrementar: function(filme){
+      this.carrinho.push(filme.id)
+    },
+    quantdadeCarinhoPorFilme: function(filme) {
+      var quantidade = 0;
+      for(var i = 0; i < this.carrinho.length; i++) {
+        if (filme.id == this.carrinho[i]) {
+          quantidade++
+        }
+      }
+      return quantidade
+    },
+    validarAdd: function(filme) {
+      return filme.estoqueDisponivel > this.quantdadeCarinhoPorFilme(filme)
+    }
+  }, computed: {
+    quantidadeCarrinho: function() {
+      return this.carrinho.length
     }
   }
 }
@@ -75,8 +105,5 @@ li {
   width: 300px;
   height: 650px;
   margin-top: 5px;
-}
-a {
-  color: #42b983;
 }
 </style>
