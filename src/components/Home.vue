@@ -8,11 +8,11 @@
     <ul>
       <li v-for="filme in filmes" v-bind:key="filme.id">{{ filme.titulo }}</li>
     </ul>
-    <h4>Carrinho</h4>
+    <h3>Filmes encontrados</h3>
     <button type="button" @click="mostrarCarrinho" class="btn btn-primary btn-lg">
       Carrinho: {{ quantidadeCarrinho }} filmes
     </button>
-    <div class="hhh">
+    <div class="hhh" v-if="mostrarFilmes">
       <div v-bind:key="filme.id" v-for="filme in filmes">
         <div class="card">
           <img v-bind:src="filme.imagem" class="card-img-top" alt="imagem do filme">
@@ -26,12 +26,45 @@
         </div>
       </div>
     </div>
+    <div class="hhh" v-else>
+      <h2>Carrinho</h2>
+
+      <!-- <div class="col-12">
+        <form>
+          <div class="form-group">
+            <label for="pedido.primeiroNome">Primeiro nome</label>
+            <input type="text"
+            class="form-control"
+            id="primeiroNome"
+            v-model="pedido.primeiroNome">
+          </div>
+          <div class="form-group">
+            <label for="ultimoNome">Sobrenome</label>
+            <input type="text"
+            class="form-control"
+            id="ultimoNome"
+            placeholder="Digite seu sobrenome"
+            v-model="pedido.ultimoNome">
+          </div>
+        </form>
+      </div>
+      <div class="col-12">
+        <pre>
+            Primeiro nome: {{ pedido.primeiroNome }}
+            Ultimo nome: {{ pedido.ultimoNome }}
+        </pre>
+      </div> -->
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Home',
+  pedido: {
+    primeiroNome: '',
+    ultimoNome: ''
+  },
   data: function() {
     return {
       mostrarFilmes: true,
