@@ -17,7 +17,8 @@
         <div class="card">
           <img v-bind:src="filme.imagem" class="card-img-top" alt="imagem do filme">
           <div class="card-body">
-            <h5 class="card-title">{{ filme.titulo }}</h5>
+            <router-link tag="h5" class="card-title" :to="{name:'filme', params: {id:filme.id}}">{{ filme.titulo}}</router-link>
+            <!-- <h5 class="card-title">{{ filme.titulo }}</h5> -->
             <p class="card-text">{{ filme.descricao }}</p>
             <span class="mensagem-estoque" v-if="filme.estoqueDisponivel - quantdadeCarinhoPorFilme(filme) === 0">
               Indisponível
@@ -76,7 +77,7 @@ export default {
     }
   }, methods: {
     mostrarCarrinho() {
-      this.mostrarFilmes = this.mostrarFilmes ? false : true
+      this.$router.push({name:'carrinho'})
     },
     incrementar: function(filme){
       this.carrinho.push(filme.id)
