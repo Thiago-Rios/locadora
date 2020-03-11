@@ -1,9 +1,10 @@
 <template>
   <div>
-     <h2>Carrinho</h2>
-      <div class="col-12">
-       <form>
-         <div class="form-row">
+    <Header/>
+    <h2>Carrinho</h2>
+    <div class="col-12">
+      <form>
+        <div class="form-row">
           <div class="form-group  col-6">
             <label for="pedido.primeiroNome">Primeiro nome</label>
             <input
@@ -24,18 +25,18 @@
               v-model.trim.lazy="pedido.ultimoNome"
             >
           </div>
-          </div>
-         <div class="form-group">
-           <label for="endereco">Endereço</label>
-           <input
-             type="text"
-             class="form-control"
-             id="endereco"
-             placeholder="Digita o endereço"
-             v-model.trim.lazy="pedido.endereco"
-           >
-         </div>
-         <div class="form-row">
+        </div>
+        <div class="form-group">
+          <label for="endereco">Endereço</label>
+          <input
+            type="text"
+            class="form-control"
+            id="endereco"
+            placeholder="Digita o endereço"
+            v-model.trim.lazy="pedido.endereco"
+          >
+        </div>
+        <div class="form-row">
           <div class="form-group  col-4">
             <label for="cidade">Cidade</label>
             <input
@@ -68,56 +69,56 @@
               v-model.number="pedido.cep"
             >
           </div>
-          </div>
-         <div class="form-group form-check">
-           <input
-             type="checkbox"
-             class="form-check-input"
-             id="pagoNaEntrega"
-             v-bind:true-value="pedido.simNaEntrega"
-             v-bind:false-value="pedido.naoNaEntrega"
-             v-model="pedido.pagoNaEntrega"
-           >
-           <label class="form-check-label" for="pagoNaEntrega">Pago na entrega?</label>
-         </div>
-         <div class="form-group form-check-inline">
-           <input
-             type="radio"
-             class="form-check-input"
-             id="manha"
-             value="Manhã"
-             v-model="pedido.entrega"
-           >
-           <label class="form-check-label" for="manha">Manhã</label>
-         </div>
-         <div class="form-group form-check-inline">
-           <input
-             type="radio"
-             class="form-check-input"
-             id="tarde"
-             value="Tarde"
-             v-model="pedido.entrega"
-           >
-           <label class="form-check-label" for="tarde">Tarde</label>
-         </div>
-         <div class="form-group form-check-inline">
-           <input
-             type="radio"
-             class="form-check-input"
-             id="noite"
-             value="Noite"
-             v-model="pedido.entrega"
-           >
-           <label class="form-check-label" for="noite">Noite</label>
-         </div>
-         
-         <div class="form-group">
-           <button type="submit" class="btn btn-dark btn-lg btn-block" v-on:click="submitFormulario">
-             Finalizar pedido
-           </button>
-         </div>
-       </form>
-     </div>
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="pagoNaEntrega"
+            v-bind:true-value="pedido.simNaEntrega"
+            v-bind:false-value="pedido.naoNaEntrega"
+            v-model="pedido.pagoNaEntrega"
+          >
+          <label class="form-check-label" for="pagoNaEntrega">Pago na entrega?</label>
+        </div>
+        <div class="form-group form-check-inline">
+          <input
+            type="radio"
+            class="form-check-input"
+            id="manha"
+            value="Manhã"
+            v-model="pedido.entrega"
+          >
+          <label class="form-check-label" for="manha">Manhã</label>
+        </div>
+        <div class="form-group form-check-inline">
+          <input
+            type="radio"
+            class="form-check-input"
+            id="tarde"
+            value="Tarde"
+            v-model="pedido.entrega"
+          >
+          <label class="form-check-label" for="tarde">Tarde</label>
+        </div>
+        <div class="form-group form-check-inline">
+          <input
+            type="radio"
+            class="form-check-input"
+            id="noite"
+            value="Noite"
+            v-model="pedido.entrega"
+          >
+          <label class="form-check-label" for="noite">Noite</label>
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-dark btn-lg btn-block" v-on:click="submitFormulario">
+            Finalizar pedido
+          </button>
+        </div>
+        </form>
+      </div>
      <div class="col-12">
        <pre>
          Primeiro nome: {{ pedido.primeiroNome }}
@@ -134,8 +135,11 @@
 </template>
 
 <script>
+import Header from './Header'
+
 export default {
   name: 'Carrinho',
+  components: {Header},
   data: function(){
     return {
       pedido: {
@@ -177,6 +181,5 @@ h3 {
 .card {
   width: 300px;
   height: 650px;
-  margin-top: 5px;
 }
 </style>

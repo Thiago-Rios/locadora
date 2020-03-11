@@ -1,23 +1,13 @@
 <template>
   <div class="hello">
-    <h1>Bem vindo a {{ msg }}</h1>
-
-    <h3 v-if="horas >= 7 && horas <17" id="aberta">ABERTA</h3>
-    <h3 v-else-if="horas >= 17 && horas < 18" id="pfechar">PRÓXIMA DE FECHAR</h3>
-    <h3 v-else id="fechada">FECHADA</h3>
-    <ul>
-      <li v-for="filme in filmes" v-bind:key="filme.id">{{ filme.titulo }}</li>
-    </ul>
+    <Header/>
     <h3>Filmes encontrados</h3>
-    <button type="button" @click="mostrarCarrinho" class="btn btn-primary btn-lg">
-      Carrinho: {{ quantidadeCarrinho }} filmes
-    </button>
     <div class="hhh" v-if="mostrarFilmes">
       <div v-bind:key="filme.id" v-for="filme in filmesOrdenados">
         <div class="card">
           <img v-bind:src="filme.imagem" class="card-img-top" alt="imagem do filme">
           <div class="card-body">
-            <h5 class="card-title">{{ filme.titulo }}</h5>
+            <router-link tag="h5" class="card-title" :to="{name: 'filme', params: {id: filme.id}}">{{ filme.titulo }}</router-link>
             <p class="card-text">{{ filme.descricao }}</p>
             <span class="mensagem-estoque" v-if="filme.estoqueDisponivel - quantdadeCarinhoPorFilme(filme) === 0">
               Indisponível
@@ -49,10 +39,14 @@
 <script>
 
 import Carrinho from './Carrinho.vue'
+import Header from './Header.vue'
 
 export default {
   name: 'Home',
-  components: {Carrinho},
+  components: {
+    Carrinho,
+    Header
+    },
   data: function() {
     return {
       mostrarFilmes: true,
