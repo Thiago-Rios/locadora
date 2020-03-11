@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header/>
     <h2>Carrinho</h2>
     <div class="col-12">
       <form>
@@ -135,11 +134,8 @@
 </template>
 
 <script>
-import Header from './Header'
-
 export default {
   name: 'Carrinho',
-  components: {Header},
   data: function(){
     return {
       pedido: {

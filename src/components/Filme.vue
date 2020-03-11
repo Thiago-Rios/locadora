@@ -1,6 +1,5 @@
 <template>
   <div class="row">
-    <Header class="col-12" title="Locadora de Filmes" />
     <div class="col-12 mt-5">
       <h3>Esse é o produto com o id {{ $route.params.id }}</h3>
     </div>
@@ -19,12 +18,8 @@
 </template>
  
 <script>
-import Header from "./Header";
  
 export default {
-  components: {
-    Header
-  },
   data() {
     return {
       filme: {
